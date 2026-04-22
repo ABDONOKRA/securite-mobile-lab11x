@@ -50,6 +50,15 @@ Objectif: forcer des retours « non root » et bloquer l’accès aux indicateur
 <img width="480" height="874" alt="image" src="https://github.com/user-attachments/assets/1f4f8574-c72e-48c2-9f38-ebe5d17bec2f" />  
 <img width="1920" height="890" alt="image" src="https://github.com/user-attachments/assets/45436d73-851c-4cb2-a65b-4e536c65f998" />
 
+# Ajouter des hooks natifs (la détection passe par du code C/C++)  
+<img width="1918" height="546" alt="image" src="https://github.com/user-attachments/assets/16efe6e5-900d-4699-9690-f81cd4ed1e16" />  
+  
+<img width="764" height="908" alt="image" src="https://github.com/user-attachments/assets/7137f6b1-2678-4eac-ad26-e8792c91207a" />
+
+  <img width="453" height="68" alt="image" src="https://github.com/user-attachments/assets/b920d2b1-fb64-4d37-aae6-a1fbee1b9051" />
+# Vérifie que frida-server tourne sur l'émulateur
+  <img width="1110" height="105" alt="image" src="https://github.com/user-attachments/assets/88f714b5-6a70-4a35-ac7b-eb8c175ab2de" />
+
 
 
 

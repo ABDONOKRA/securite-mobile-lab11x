@@ -36,7 +36,20 @@ Lecture de /proc/mounts ou /proc/self/mounts.
 
 Anti-debug/anti-Frida (scan de ports, strings "frida").  
 
+# Script Frida (bypass Java) prêt à l’emploi
+
+
+<img width="1920" height="977" alt="image" src="https://github.com/user-attachments/assets/f6707987-4f15-42d4-a18d-f4e3a2120fb8" />
+
+
 Objectif: forcer des retours « non root » et bloquer l’accès aux indicateurs.  
+
+# Lancement
+<img width="1920" height="548" alt="image" src="https://github.com/user-attachments/assets/91f7d2a5-4063-429d-9b54-f55b9dbc30de" />    
+## lapp crashed
+<img width="480" height="874" alt="image" src="https://github.com/user-attachments/assets/1f4f8574-c72e-48c2-9f38-ebe5d17bec2f" />  
+<img width="1920" height="890" alt="image" src="https://github.com/user-attachments/assets/45436d73-851c-4cb2-a65b-4e536c65f998" />
+
 
 
 

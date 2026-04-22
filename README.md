@@ -60,6 +60,80 @@ Objectif: forcer des retours « non root » et bloquer l’accès aux indicateur
   <img width="1110" height="105" alt="image" src="https://github.com/user-attachments/assets/88f714b5-6a70-4a35-ac7b-eb8c175ab2de" />
 
 
+# si le script namarche avec la version de frida la soultuion est :   
+## collecter les ressources de prblesms :
+<img width="1608" height="785" alt="image" src="https://github.com/user-attachments/assets/61d02a2d-ba72-4871-a794-267b8faf57f5" />
+
+# le prob ets de la versiond efrida jai le downgarde elle fonctionne 
+
+## le script 
+// bypass_final.js
+
+// Hook strstr pour cacher frida
+Interceptor.attach(Module.findExportByName("libc.so", "strstr"), {
+    onEnter: function(args) {
+        try {
+            var needle = args[1].readCString();
+            if (needle && (needle.indexOf("frida") !== -1 || needle.indexOf("xposed") !== -1)) {
+                this.fake = true;
+                console.log("[+] strstr bloqué: " + needle);
+            }
+        } catch(e) {}
+    },
+    onLeave: function(retval) {
+        if (this.fake) {
+            retval.replace(ptr(0));
+            this.fake = false;
+        }
+    }
+});
+console.log("[+] strstr hookée");
+
+// Hook fgets pour cacher frida dans /proc/self/maps
+var fgetsPtr = Module.findExportByName("libc.so", "fgets");
+var fgets = new NativeFunction(fgetsPtr, 'pointer', ['pointer', 'int', 'pointer']);
+Interceptor.replace(fgetsPtr, new NativeCallback(function(buffer, size, fp) {
+    var retval = fgets(buffer, size, fp);
+    try {
+        var line = Memory.readUtf8String(buffer);
+        if (line && line.indexOf("frida") !== -1) {
+            Memory.writeUtf8String(buffer, "");
+            console.log("[+] fgets: ligne frida effacée");
+        }
+    } catch(e) {}
+    return retval;
+}, 'pointer', ['pointer', 'int', 'pointer']));
+console.log("[+] fgets hookée");
+
+// Java bypass
+Java.perform(function () {
+    try {
+        var MainActivity = Java.use("sg.vantagepoint.uncrackable3.MainActivity");
+        MainActivity.showDialog.implementation = function(msg) {
+            console.log("[+] showDialog bloqué: " + msg);
+        };
+        console.log("[+] showDialog OK");
+    } catch(e) { console.log("[-] showDialog: " + e); }
+
+    try {
+        var RootDetection = Java.use("sg.vantagepoint.util.RootDetection");
+        RootDetection.checkRoot1.implementation = function() { return false; };
+        RootDetection.checkRoot2.implementation = function() { return false; };
+        RootDetection.checkRoot3.implementation = function() { return false; };
+        console.log("[+] RootDetection OK");
+    } catch(e) { console.log("[-] RootDetection: " + e); }
+
+    try {
+        var MC = Java.use("sg.vantagepoint.uncrackable3.MainActivity");
+        MC.verifyLibs.implementation = function() {
+            console.log("[+] verifyLibs bloquée");
+        };
+        console.log("[+] verifyLibs OK");
+    } catch(e) { console.log("[-] verifyLibs: " + e); }
+});
+
+<img width="508" height="1000" alt="image" src="https://github.com/user-attachments/assets/881b20f8-3445-429c-932d-3e1047e5e52a" />
+
 
 
 
